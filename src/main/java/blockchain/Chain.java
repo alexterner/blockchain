@@ -26,7 +26,7 @@ public class Chain {
             Block currentBlock = blockChain.get(i);
             Block previousBlock = blockChain.get(i-1);
 
-            if( !currentBlock.isValidHash() ){
+            if( !currentBlock.isValid() ){
                 return false;
             }
 

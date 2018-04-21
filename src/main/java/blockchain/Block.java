@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Block {
 
-    private static final int difficult = 6;
+    private static final int difficult = 4;
 
     private String data;
 
@@ -31,8 +31,18 @@ public class Block {
         return  HashUtils.hash( getPrevHash() + Long.toString( getTs() ) + Integer.toString( getNonce() ) + getData());
     }
 
-    public boolean isValidHash(){
+    private boolean isValidHash(){
         return Objects.equals( getHash(), createHash());
+    }
+
+    private boolean isMinedHash(){
+        String target = StringUtils.leftPad(StringUtils.EMPTY, difficult, '0');
+
+        return !getHash().substring(0, difficult).equals( target );
+    }
+
+    public boolean isValid(){
+       return isValidHash() && isValidHash();
     }
 
     public void mine(){
@@ -43,7 +53,7 @@ public class Block {
                 this.nonce ++;
                 this.hash = createHash();
         }
-        System.out.println("Block Mined!!! : " + hash + ", nonce : " + nonce);
+        System.out.println("Block Mined : " + hash + ", nonce : " + nonce);
     }
 
     public String getData() {
